@@ -32,7 +32,9 @@ modern successor to [NoRefer](https://github.com/c475/NoRefer).
 
 ## Install
 
-Not on the stores (yet) — load it from source:
+Store submissions are prepared (see [`store/`](store/)) and pending the
+one-time developer-account setup on each store. Until they're live, load it
+from source:
 
 **Chrome / Chromium / Edge**
 1. `chrome://extensions` → enable *Developer mode*

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+  body {
+    background: radial-gradient(1200px 700px at 78% 12%, #2a2350 0%, #16161f 55%, #101017 100%);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #e8e8f0;
+    display: grid;
+    grid-template-columns: 1fr 660px;
+    align-items: center;
+    gap: 40px;
+    padding: 0 64px;
+    box-sizing: border-box;
+  }
+  .pitch h1 { font-size: 52px; margin: 0 0 6px; font-weight: 800; letter-spacing: -.5px; }
+  .pitch h1 span { color: #8b7cff; }
+  .pitch .sub { font-size: 22px; color: #b8b8cf; margin: 0 0 30px; font-weight: 500; }
+  .pitch ul { list-style: none; padding: 0; margin: 0; }
+  .pitch li { font-size: 18px; margin: 14px 0; display: flex; align-items: center; gap: 12px; color: #d6d6e6; }
+  .pitch li b { color: #fff; font-weight: 600; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #8b7cff; flex: none; box-shadow: 0 0 12px #8b7cff; }
+  .frame {
+    background: #1f1f2a;
+    border: 1px solid #2c2c3a;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+    overflow: hidden;
+  }
+  .chrome-bar {
+    height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 14px;
+    background: #16161d; border-bottom: 1px solid #2c2c3a;
+  }
+  .chrome-bar i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .chrome-bar .r { background: #ff5f57; } .chrome-bar .y { background: #febc2e; } .chrome-bar .g { background: #28c840; }
+  .chrome-bar span { margin-left: 10px; font-size: 12px; color: #8f8fa8; }
+  iframe { width: 660px; height: 620px; border: 0; display: block; background: #17171f; }
+</style>
+</head>
+<body>
+  <div class="pitch">
+    <h1>NoRefer&nbsp;<span>2</span></h1>
+    <p class="sub">Per-domain HTTP header editor</p>
+    <ul>
+      <li><span class="dot"></span><b>Set, strip, or append</b>&nbsp;any header</li>
+      <li><span class="dot"></span><b>Request &amp; response</b>&nbsp;— both directions</li>
+      <li><span class="dot"></span><b>Scoped per domain</b>, or globally</li>
+      <li><span class="dot"></span><b>Native speed</b>&nbsp;— declarativeNetRequest</li>
+      <li><span class="dot"></span><b>Local &amp; private</b>&nbsp;— no telemetry, no servers</li>
+    </ul>
+  </div>
+  <div class="frame">
+    <div class="chrome-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>NoRefer 2</span></div>
+    <iframe src="../popup.html"></iframe>
+  </div>
+</body>
+</html>
