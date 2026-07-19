@@ -49,17 +49,6 @@ Both browsers run the **same code**: Chrome uses
 `background.service_worker`, Firefox uses `background.scripts`, and each
 ignores the other's manifest key. Everything else is shared MV3 API.
 
-## Migrating from NoRefer v1
-
-*Import / Export → Import NoRefer v1 config* and paste your old textarea.
-`Header` lines become remove-rules, `Header: value` lines become set-rules.
-
-One capability did not survive the move off the deprecated blocking
-`webRequest` API: regex **header names** (`#Accept.*`). The
-`declarativeNetRequest` engine matches header names literally, so those
-lines are reported instead of imported. URL filters cover part of the gap
-from the other direction.
-
 ## Notes & limits
 
 - `Append` on request headers is only honored by browsers for a small set
