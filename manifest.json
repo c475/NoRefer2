@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "NoRefer 2",
+  "version": "2.0.0",
+  "description": "Per-domain HTTP header editor. Set, append, or strip any request or response header, scoped to the sites you choose.",
+  "homepage_url": "https://github.com/c475/NoRefer2",
+  "minimum_chrome_version": "121",
+  "permissions": [
+    "declarativeNetRequest",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["rules.js", "background.js"]
+  },
+  "action": {
+    "default_title": "NoRefer 2",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/cat16.png",
+      "48": "icons/cat48.png",
+      "128": "icons/cat128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/cat16.png",
+    "48": "icons/cat48.png",
+    "128": "icons/cat128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "norefer2@c475.github.io",
+      "strict_min_version": "121.0"
+    }
+  }
+}

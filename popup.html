@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NoRefer 2</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <header>
+    <img src="icons/cat48.png" alt="" class="logo">
+    <div class="title-block">
+      <h1>NoRefer&nbsp;<span class="v2">2</span></h1>
+      <p class="tagline">per-domain header editor</p>
+    </div>
+    <span id="activeCount" class="count-pill" title="rules currently compiled into the browser"></span>
+    <label class="switch master" title="Master switch — off disables every rule">
+      <input id="masterToggle" type="checkbox">
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <main id="ruleList"></main>
+
+  <div id="empty" class="empty" hidden>
+    <p>No rules yet.</p>
+    <p class="hint">Add one, or start from a preset below.</p>
+  </div>
+
+  <footer>
+    <button id="addRule" class="primary">+ Rule</button>
+    <div class="menu-wrap">
+      <button id="presetsBtn">Presets ▾</button>
+      <div id="presetsMenu" class="menu" hidden></div>
+    </div>
+    <div class="menu-wrap">
+      <button id="ioBtn">Import / Export ▾</button>
+      <div id="ioMenu" class="menu" hidden>
+        <button id="importJson">Import JSON…</button>
+        <button id="importLegacy">Import NoRefer v1 config…</button>
+        <button id="exportJson">Export JSON</button>
+      </div>
+    </div>
+    <span class="spacer"></span>
+    <button id="helpBtn" class="icon-btn" title="Help">?</button>
+    <button id="openTab" class="icon-btn" title="Open as full page">⧉</button>
+  </footer>
+
+  <section id="help" hidden>
+    <h2>How it works</h2>
+    <p>Each rule edits one header on matching traffic, using the browser's
+      <code>declarativeNetRequest</code> engine — edits are applied natively,
+      even before the extension's code runs.</p>
+    <ul>
+      <li><b>Request / Response</b> — which direction of the exchange to edit.</li>
+      <li><b>Set</b> replaces (or adds) the header, <b>Remove</b> strips it,
+        <b>Append</b> adds a value alongside an existing one. Browsers only
+        allow <i>append</i> on a small set of request headers
+        (<code>Accept</code>, <code>Accept-Language</code>,
+        <code>Cache-Control</code>, <code>Cookie</code>, …); response headers
+        can generally be appended freely.</li>
+      <li><b>Scope</b> — comma-separated domains; subdomains are included
+        automatically (<code>example.com</code> also covers
+        <code>api.example.com</code>). Leave empty to apply everywhere.</li>
+      <li><b>Advanced ⚙</b> — choose whether the scope matches the
+        <i>target host</i> (the server being contacted) or the
+        <i>page host</i> (the site the request originates from), and
+        optionally add a
+        <a href="https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/declarativeNetRequest#url_filter_syntax"
+           target="_blank" rel="noreferrer">URL filter</a> such as
+        <code>||example.com/api/*</code>.</li>
+      <li><b>Order matters</b> — when two rules touch the same header, the one
+        higher in the list wins. Reorder with ↑ ↓.</li>
+    </ul>
+    <h2>Notes</h2>
+    <ul>
+      <li>Some headers are browser-reserved (e.g. <code>Host</code>) and can't
+        be edited; if a rule is rejected you'll see an error toast here.</li>
+      <li>Unlike NoRefer v1, header <i>names</i> can't be regular expressions —
+        that capability didn't survive the move from the deprecated blocking
+        <code>webRequest</code> API. URL filters fill part of the gap.</li>
+      <li>Everything is stored locally. No telemetry, no sync, no servers.</li>
+    </ul>
+  </section>
+
+  <dialog id="legacyDialog">
+    <h2>Import NoRefer v1 config</h2>
+    <p>Paste the contents of the old textarea. <code>Header</code> lines become
+      remove-rules, <code>Header: value</code> lines become set-rules. Regex
+      lines (<code>#…</code>) can't be converted and will be listed.</p>
+    <textarea id="legacyText" rows="8" spellcheck="false"
+      placeholder="Referer&#10;User-Agent: CoolAgent4000"></textarea>
+    <div class="dialog-actions">
+      <button id="legacyCancel">Cancel</button>
+      <button id="legacyImport" class="primary">Import</button>
+    </div>
+  </dialog>
+
+  <input type="file" id="filePicker" accept=".json,application/json" hidden>
+  <div id="toast" hidden></div>
+
+  <datalist id="commonHeaders">
+    <option value="Referer"></option>
+    <option value="User-Agent"></option>
+    <option value="Origin"></option>
+    <option value="Cookie"></option>
+    <option value="Authorization"></option>
+    <option value="Accept"></option>
+    <option value="Accept-Language"></option>
+    <option value="Accept-Encoding"></option>
+    <option value="DNT"></option>
+    <option value="Sec-GPC"></option>
+    <option value="X-Forwarded-For"></option>
+    <option value="X-Requested-With"></option>
+    <option value="Cache-Control"></option>
+    <option value="If-None-Match"></option>
+    <option value="Content-Security-Policy"></option>
+    <option value="Access-Control-Allow-Origin"></option>
+    <option value="X-Frame-Options"></option>
+    <option value="Set-Cookie"></option>
+    <option value="Location"></option>
+    <option value="Server"></option>
+  </datalist>
+
+  <script src="rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
